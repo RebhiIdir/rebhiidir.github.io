@@ -1,12 +1,12 @@
 # Idir REBHI - Research Portfolio
 
-Ce dossier contient ton site personnel academique. Il est construit avec Astro, Tailwind CSS, Markdown et GitHub Pages.
+Ce dossier contient mon site personnel academique. Il est construit avec Astro, Tailwind CSS, Markdown et GitHub Pages.
 
-## 1. Lancer le site sur ton PC
+## 1. Lancer le site sur PC
 
-Installe Node.js LTS si ce n'est pas deja fait : https://nodejs.org/
+Installation de Node.js LTS : https://nodejs.org/
 
-Ensuite, ouvre un terminal dans ce dossier :
+Ensuite, un terminal dans ce dossier :
 
 ```bash
 cd portfolio
@@ -20,13 +20,13 @@ Astro affichera une adresse du type :
 http://localhost:4321/
 ```
 
-Ouvre cette adresse dans ton navigateur.
+Ouvrir l'adresse
 
-Important : apres `npm install`, un fichier `package-lock.json` sera cree. Garde-le et envoie-le aussi sur GitHub. GitHub Pages s'en servira pour reconstruire le site correctement.
+Important : apres `npm install`, un fichier `package-lock.json` sera cree. Il faut le garder et l'envoyer aussi sur GitHub. GitHub Pages s'en servira pour reconstruire le site correctement.
 
-## 2. Les fichiers que tu vas modifier le plus souvent
+## 2. Les fichiers à modifier le plus souvent
 
-### Ton identite generale
+### Identite generale
 
 Fichier :
 
@@ -34,14 +34,14 @@ Fichier :
 src/data/profile.ts
 ```
 
-C'est ici que tu changes :
+C'est ici que je changes :
 
-- ton nom ;
-- ton titre ;
-- ton email ;
-- tes liens GitHub, Kaggle, LinkedIn ;
-- tes domaines de recherche ;
-- les phrases courtes de presentation.
+- mon nom ;
+- mon titre ;
+- mon email ;
+- mes liens GitHub, Kaggle, LinkedIn ;
+- mes domaines de recherche ;
+- mes phrases courtes de presentation.
 
 ### Ajouter ou modifier une page de recherche
 
@@ -59,7 +59,7 @@ Exemple :
 src/content/research/generative-steganography.md
 ```
 
-Pour ajouter une nouvelle recherche, copie ce fichier, renomme-le, puis modifie le contenu.
+Pour ajouter une nouvelle recherche, copie le fichier, le renommer, puis modifier le contenu.
 
 ### Ajouter ou modifier un projet
 
@@ -77,9 +77,9 @@ Exemple :
 src/content/projects/rest-api.md
 ```
 
-Pour ajouter un projet, copie un fichier existant, change le titre, les technologies, le resume et le texte.
+Pour ajouter un projet, il faut copier un fichier existant, changer le titre, les technologies, le resume et le texte.
 
-### Ajouter ton CV ou ton memoire en PDF
+### Ajouter mon CV ou mon memoire en PDF
 
 Dossier :
 
@@ -87,7 +87,7 @@ Dossier :
 public/documents/
 ```
 
-Mets tes PDF ici. Exemple :
+Mets les PDF ici. Exemple :
 
 ```text
 public/documents/idir-rebhi-cv.pdf
@@ -95,7 +95,7 @@ public/documents/master-thesis.pdf
 public/documents/master-presentation.pdf
 ```
 
-Ensuite, mets a jour les liens dans :
+Ensuite, mettre a jour les liens dans :
 
 ```text
 src/data/profile.ts
@@ -108,7 +108,7 @@ Dans `src/data/profile.ts`, mets par exemple :
 cvPdfUrl: "/documents/idir-rebhi-cv.pdf",
 ```
 
-Dans `src/content/research/generative-steganography.md`, tu peux ajouter :
+Dans `src/content/research/generative-steganography.md`, je peux ajouter :
 
 ```yaml
 links:
@@ -129,7 +129,7 @@ src/
     research/       Pages de recherche en Markdown
     projects/       Pages de projets en Markdown
   data/
-    profile.ts      Ton profil central
+    profile.ts      mon profil central
   layouts/
     BaseLayout.astro
   pages/
@@ -148,14 +148,14 @@ src/
 Le plus simple pour un site personnel :
 
 1. Cree un depot GitHub nomme exactement `idirrebhi.github.io`.
-2. Mets le contenu du dossier `portfolio` dans ce depot.
-3. Va dans `Settings` puis `Pages`.
-4. Choisis `GitHub Actions`.
-5. Envoie ton code sur la branche `main`.
+2. Mettre le contenu du dossier `portfolio` dans ce depot.
+3. Aller dans `Settings` puis `Pages`.
+4. Choisir `GitHub Actions`.
+5. Envoi de mon code sur la branche `main`.
 
 GitHub va construire le site automatiquement.
 
-Si ton nom d'utilisateur GitHub n'est pas `idirrebhi`, change aussi la ligne `site` dans `astro.config.mjs`.
+Si mon nom d'utilisateur GitHub n'est pas `idirrebhi`, changer aussi la ligne `site` dans `astro.config.mjs`.
 
 ## 5. Commandes utiles
 
@@ -179,11 +179,11 @@ npm run preview
 
 ## 6. Regle d'or
 
-Ton site doit aider un professeur a comprendre en moins de 30 secondes :
+Mon site doit aider un professeur a comprendre en moins de 30 secondes :
 
-- qui tu es ;
-- ce que tu recherches ;
-- ce que tu as deja construit ;
-- ou trouver ton CV ;
-- ou trouver ton code ;
-- comment te contacter.
+- qui je suis ;
+- ce que je recherches ;
+- ce que j'ai deja construit ;
+- ou trouver mon CV ;
+- ou trouver mon code ;
+- comment me contacter.
