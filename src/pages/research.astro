@@ -1,0 +1,24 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Container from "@components/Container.astro";
+import ResearchCard from "@components/ResearchCard.astro";
+import SectionHeading from "@components/SectionHeading.astro";
+import { profile } from "@data/profile";
+
+const research = (await getCollection("research")).sort((a, b) => b.data.date.localeCompare(a.data.date));
+---
+
+<BaseLayout title={`Research - ${profile.name}`}>
+  <Container class="py-16 sm:py-20">
+    <SectionHeading
+      eyebrow="Research"
+      title="Research work"
+      description="Research pages are written in Markdown so they can evolve into full publication pages over time."
+    />
+
+    <div class="mt-10 grid gap-5 md:grid-cols-2">
+      {research.map((entry) => <ResearchCard entry={entry} />)}
+    </div>
+  </Container>
+</BaseLayout>

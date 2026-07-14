@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+:root {
+  --color-ink: #0f172a;
+  --color-muted: #526174;
+  --color-line: #d8e0ea;
+  --color-accent: #0f3d5e;
+  --color-accent-soft: #e8f0f6;
+  --color-paper: #ffffff;
+  --color-subtle: #f7f9fb;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  line-height: 1.65;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: var(--color-accent-soft);
+  color: var(--color-ink);
+}
+
+.content-prose {
+  color: var(--color-ink);
+}
+
+.content-prose h2 {
+  margin-top: 2.25rem;
+  margin-bottom: 0.85rem;
+  font-size: 1.35rem;
+  line-height: 1.25;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.content-prose h3 {
+  margin-top: 1.75rem;
+  margin-bottom: 0.65rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.content-prose p {
+  margin: 0.85rem 0;
+  color: var(--color-muted);
+}
+
+.content-prose ul {
+  margin: 0.85rem 0 1rem 1.2rem;
+  color: var(--color-muted);
+  list-style: disc;
+}
+
+.content-prose li {
+  margin: 0.35rem 0;
+}
+
+.content-prose a {
+  color: var(--color-accent);
+  font-weight: 700;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-accent), transparent 60%);
+}
+
+.content-prose strong {
+  color: var(--color-ink);
+}

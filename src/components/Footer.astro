@@ -1,0 +1,17 @@
+---
+import Container from "./Container.astro";
+import { profile } from "@data/profile";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="mt-24 border-t border-[var(--color-line)]">
+  <Container class="flex flex-col gap-4 py-8 text-sm text-[var(--color-muted)] sm:flex-row sm:items-center sm:justify-between">
+    <p>&copy; {year} {profile.name}. Research portfolio.</p>
+    <div class="flex flex-wrap gap-4">
+      <a class="hover:text-[var(--color-accent)]" href={`mailto:${profile.email}`}>Email</a>
+      <a class="hover:text-[var(--color-accent)]" href={profile.links.github}>GitHub</a>
+      <a class="hover:text-[var(--color-accent)]" href={profile.links.linkedin}>LinkedIn</a>
+    </div>
+  </Container>
+</footer>

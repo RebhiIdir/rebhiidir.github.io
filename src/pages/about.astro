@@ -1,0 +1,69 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Container from "@components/Container.astro";
+import SectionHeading from "@components/SectionHeading.astro";
+import TagList from "@components/TagList.astro";
+import { profile } from "@data/profile";
+---
+
+<BaseLayout title={`About - ${profile.name}`}>
+  <Container class="py-16 sm:py-20">
+    <SectionHeading
+      eyebrow="About"
+      title="A research-oriented AI profile"
+      description="Master's student in Intelligent Computer Systems, building a research trajectory around trustworthy and secure generative AI."
+    />
+
+    <div class="mt-10 grid gap-10 lg:grid-cols-[0.75fr_1.25fr]">
+      <aside class="rounded border border-[var(--color-line)] bg-[var(--color-subtle)] p-5">
+        <p class="text-sm font-bold">At a glance</p>
+        <dl class="mt-4 space-y-4 text-sm">
+          <div>
+            <dt class="font-bold text-[var(--color-ink)]">Name</dt>
+            <dd class="text-[var(--color-muted)]">{profile.name}</dd>
+          </div>
+          <div>
+            <dt class="font-bold text-[var(--color-ink)]">Location</dt>
+            <dd class="text-[var(--color-muted)]">{profile.location}</dd>
+          </div>
+          <div>
+            <dt class="font-bold text-[var(--color-ink)]">Focus</dt>
+            <dd class="text-[var(--color-muted)]">Steganalysis, diffusion models, computer vision, trustworthy AI</dd>
+          </div>
+          <div>
+            <dt class="font-bold text-[var(--color-ink)]">Languages</dt>
+            <dd class="text-[var(--color-muted)]">Kabyle (native), French (C1), Arabic, English</dd>
+          </div>
+        </dl>
+      </aside>
+
+      <div class="content-prose max-w-3xl">
+        <p>
+          I am a second-year Master's student in Intelligent Computer Systems at Université Mouloud Mammeri de
+          Tizi-Ouzou, specialized in designing AI-based solutions. What defines me best is versatility: I adapt
+          quickly to different contexts and pick up whatever tool a problem requires, across AI and computer
+          science more broadly.
+        </p>
+        <p>
+          My Master's thesis, <em>"Detecting steganography from generative models: distinguishing steganographic
+          images from synthetic images,"</em> sits at the intersection of computer vision, steganalysis, and
+          generative AI. It asks a simple but hard question: as diffusion models make it possible to embed a
+          secret message directly during image generation rather than after the fact, can existing steganalysis
+          tools still tell a clean image from a compromised one? Working with Siham Larbi under the supervision
+          of M. Samy Sadi and Mlle. Hedir Tassadit, I re-implemented the NS-DSer detection pipeline on Stable
+          Diffusion 2.1 and evaluated it against Message Concealment, mas-GRDH, and Gaussian Shading — three
+          techniques with very different resistance to detection.
+        </p>
+        <p>
+          Beyond the thesis, I enjoy building things end to end: from implementing neural networks and ML
+          algorithms by hand (grounded in linear algebra) to shipping full applications — REST APIs, IoT systems,
+          desktop software, and 2D games. I like collaborating with other students and bring a genuine sense of
+          leadership to both my academic work and everyday projects.
+        </p>
+
+        <h2>Research interests</h2>
+        <TagList tags={profile.researchInterests} />
+      </div>
+    </div>
+  </Container>
+</BaseLayout>

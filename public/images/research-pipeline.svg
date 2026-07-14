@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="520" viewBox="0 0 1120 520" role="img" aria-labelledby="title desc">
+  <title id="title">Generative steganography detection pipeline</title>
+  <desc id="desc">A simple academic diagram showing image input, generative process, detector, and decision.</desc>
+  <rect width="1120" height="520" fill="#f8fafc"/>
+  <g fill="#ffffff" stroke="#d6dee8" stroke-width="2">
+    <rect x="72" y="142" width="210" height="150" rx="8"/>
+    <rect x="330" y="142" width="210" height="150" rx="8"/>
+    <rect x="588" y="142" width="210" height="150" rx="8"/>
+    <rect x="846" y="142" width="210" height="150" rx="8"/>
+  </g>
+  <g fill="#0f172a" font-family="Arial, sans-serif">
+    <text x="177" y="198" text-anchor="middle" font-size="25" font-weight="700">Image</text>
+    <text x="177" y="233" text-anchor="middle" font-size="18">cover or generated</text>
+    <text x="435" y="190" text-anchor="middle" font-size="25" font-weight="700">Process</text>
+    <text x="435" y="225" text-anchor="middle" font-size="18">possible hidden signal</text>
+    <text x="693" y="198" text-anchor="middle" font-size="25" font-weight="700">Detector</text>
+    <text x="693" y="233" text-anchor="middle" font-size="18">features and model</text>
+    <text x="951" y="198" text-anchor="middle" font-size="25" font-weight="700">Decision</text>
+    <text x="951" y="233" text-anchor="middle" font-size="18">stego or clean</text>
+  </g>
+  <g stroke="#0f3d5e" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M288 217h34"/>
+    <path d="M314 207l12 10-12 10"/>
+    <path d="M546 217h34"/>
+    <path d="M572 207l12 10-12 10"/>
+    <path d="M804 217h34"/>
+    <path d="M830 207l12 10-12 10"/>
+  </g>
+  <g fill="#0f3d5e" opacity="0.11">
+    <circle cx="177" cy="347" r="38"/>
+    <circle cx="435" cy="347" r="38"/>
+    <circle cx="693" cy="347" r="38"/>
+    <circle cx="951" cy="347" r="38"/>
+  </g>
+  <g fill="#334155" font-family="Arial, sans-serif" font-size="16">
+    <text x="177" y="352" text-anchor="middle">data</text>
+    <text x="435" y="352" text-anchor="middle">noise</text>
+    <text x="693" y="352" text-anchor="middle">score</text>
+    <text x="951" y="352" text-anchor="middle">report</text>
+  </g>
+</svg>

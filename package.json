@@ -1,0 +1,17 @@
+{
+  "name": "idir-rebhi-research-portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node ./scripts/astro.mjs dev",
+    "build": "node ./scripts/astro.mjs build",
+    "preview": "node ./scripts/astro.mjs preview"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "latest",
+    "astro": "latest",
+    "tailwindcss": "latest"
+  },
+  "devDependencies": {}
+}

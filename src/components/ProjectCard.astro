@@ -1,0 +1,29 @@
+---
+import TagList from "./TagList.astro";
+
+interface Props {
+  entry: {
+    id: string;
+    data: {
+      title: string;
+      summary: string;
+      date: string;
+      technologies: string[];
+    };
+  };
+}
+
+const { entry } = Astro.props;
+---
+
+<article class="rounded border border-[var(--color-line)] bg-white p-5 transition-colors hover:border-[var(--color-accent)]">
+  <p class="mb-3 text-xs font-bold uppercase tracking-[0.14em] text-[var(--color-accent)]">{entry.data.date}</p>
+  <h3 class="text-xl font-bold tracking-normal">
+    <a href={`/projects/${entry.id}`} class="hover:text-[var(--color-accent)]">{entry.data.title}</a>
+  </h3>
+  <p class="mt-3 text-sm text-[var(--color-muted)]">{entry.data.summary}</p>
+  <div class="mt-5">
+    <TagList tags={entry.data.technologies} />
+  </div>
+  <a class="mt-6 inline-flex text-sm font-bold text-[var(--color-accent)]" href={`/projects/${entry.id}`}>View project -></a>
+</article>
