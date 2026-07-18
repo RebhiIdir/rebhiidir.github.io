@@ -1,5 +1,6 @@
 ---
 import TagList from "./TagList.astro";
+import Collaborators from "./Collaborators.astro";
 
 interface Props {
   entry: {
@@ -9,21 +10,31 @@ interface Props {
       summary: string;
       date: string;
       technologies: string[];
+      collaborators?: string[];
     };
   };
+  basePath?: string;
+  viewLabel?: string;
+  collaboratorsLabel?: string;
 }
 
-const { entry } = Astro.props;
+const { entry, basePath = "/projects", viewLabel = "View project →", collaboratorsLabel = "With" } = Astro.props;
+const href = `${basePath}/${entry.id}`;
 ---
 
-<article class="rounded border border-[var(--color-line)] bg-white p-5 transition-colors hover:border-[var(--color-accent)]">
+<article class="rounded border border-[var(--color-line)] bg-[var(--color-paper)] p-5 transition-colors hover:border-[var(--color-accent)]">
   <p class="mb-3 text-xs font-bold uppercase tracking-[0.14em] text-[var(--color-accent)]">{entry.data.date}</p>
   <h3 class="text-xl font-bold tracking-normal">
-    <a href={`/projects/${entry.id}`} class="hover:text-[var(--color-accent)]">{entry.data.title}</a>
+    <a href={href} class="hover:text-[var(--color-accent)]">{entry.data.title}</a>
   </h3>
   <p class="mt-3 text-sm text-[var(--color-muted)]">{entry.data.summary}</p>
   <div class="mt-5">
     <TagList tags={entry.data.technologies} />
   </div>
-  <a class="mt-6 inline-flex text-sm font-bold text-[var(--color-accent)]" href={`/projects/${entry.id}`}>View project -></a>
+  {entry.data.collaborators && entry.data.collaborators.length > 0 && (
+    <div class="mt-4">
+      <Collaborators names={entry.data.collaborators} label={collaboratorsLabel} />
+    </div>
+  )}
+  <a class="mt-6 inline-flex text-sm font-bold text-[var(--color-accent)]" href={href}>{viewLabel}</a>
 </article>

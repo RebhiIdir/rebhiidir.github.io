@@ -6,10 +6,10 @@ import SectionHeading from "@components/SectionHeading.astro";
 import { profile } from "@data/profile";
 import { useTranslations } from "@i18n/ui";
 
-const t = useTranslations("en");
+const t = useTranslations("fr");
 ---
 
-<BaseLayout title={`Contact - ${profile.name}`}>
+<BaseLayout title={`Contact - ${profile.name}`} description={profile.subtitleFr}>
   <Container class="py-16 sm:py-20">
     <SectionHeading eyebrow={t.contact.eyebrow} title={t.contact.title} description={t.contact.description} />
 

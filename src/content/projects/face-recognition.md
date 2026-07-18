@@ -3,6 +3,7 @@ title: "Facial Recognition System"
 summary: "A biometric system covering feature extraction, model training, and evaluation for face recognition."
 date: "2025"
 featured: true
+collaborators: ["Siham Larbi", "Nouria Benamara", "Mohamed Amine Terdjemane"]
 technologies:
   - Python
   - Computer Vision

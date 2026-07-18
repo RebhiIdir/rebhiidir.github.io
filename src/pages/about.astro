@@ -4,34 +4,33 @@ import Container from "@components/Container.astro";
 import SectionHeading from "@components/SectionHeading.astro";
 import TagList from "@components/TagList.astro";
 import { profile } from "@data/profile";
+import { useTranslations } from "@i18n/ui";
+
+const t = useTranslations("en");
 ---
 
 <BaseLayout title={`About - ${profile.name}`}>
   <Container class="py-16 sm:py-20">
-    <SectionHeading
-      eyebrow="About"
-      title="A research-oriented AI profile"
-      description="Master's student in Intelligent Computer Systems, building a research trajectory around trustworthy and secure generative AI."
-    />
+    <SectionHeading eyebrow={t.about.eyebrow} title={t.about.title} description={t.about.description} />
 
     <div class="mt-10 grid gap-10 lg:grid-cols-[0.75fr_1.25fr]">
       <aside class="rounded border border-[var(--color-line)] bg-[var(--color-subtle)] p-5">
-        <p class="text-sm font-bold">At a glance</p>
+        <p class="text-sm font-bold">{t.about.atAGlance}</p>
         <dl class="mt-4 space-y-4 text-sm">
           <div>
-            <dt class="font-bold text-[var(--color-ink)]">Name</dt>
+            <dt class="font-bold text-[var(--color-ink)]">{t.about.name}</dt>
             <dd class="text-[var(--color-muted)]">{profile.name}</dd>
           </div>
           <div>
-            <dt class="font-bold text-[var(--color-ink)]">Location</dt>
+            <dt class="font-bold text-[var(--color-ink)]">{t.about.location}</dt>
             <dd class="text-[var(--color-muted)]">{profile.location}</dd>
           </div>
           <div>
-            <dt class="font-bold text-[var(--color-ink)]">Focus</dt>
-            <dd class="text-[var(--color-muted)]">Steganalysis, diffusion models, computer vision, trustworthy AI</dd>
+            <dt class="font-bold text-[var(--color-ink)]">{t.about.focus}</dt>
+            <dd class="text-[var(--color-muted)]">{t.about.focusValue}</dd>
           </div>
           <div>
-            <dt class="font-bold text-[var(--color-ink)]">Languages</dt>
+            <dt class="font-bold text-[var(--color-ink)]">{t.about.languages}</dt>
             <dd class="text-[var(--color-muted)]">Kabyle (native), French (C1), Arabic, English</dd>
           </div>
         </dl>
@@ -39,7 +38,7 @@ import { profile } from "@data/profile";
 
       <div class="content-prose max-w-3xl">
         <p>
-          I am a second-year Master's student in Intelligent Computer Systems at Université Mouloud Mammeri de
+          I am a graduate of the Master's program in Intelligent Computer Systems at Université Mouloud Mammeri de
           Tizi-Ouzou, specialized in designing AI-based solutions. What defines me best is versatility: I adapt
           quickly to different contexts and pick up whatever tool a problem requires, across AI and computer
           science more broadly.
@@ -55,13 +54,18 @@ import { profile } from "@data/profile";
           techniques with very different resistance to detection.
         </p>
         <p>
+          Most of the applied projects on this site — from the REST API to the facial recognition system — were
+          also carried out with Siham Larbi, and some with Nouria Benamara and Mohamed Amine Terdjemane; each
+          project page credits its collaborators directly.
+        </p>
+        <p>
           Beyond the thesis, I enjoy building things end to end: from implementing neural networks and ML
           algorithms by hand (grounded in linear algebra) to shipping full applications — REST APIs, IoT systems,
-          desktop software, and 2D games. I like collaborating with other students and bring a genuine sense of
-          leadership to both my academic work and everyday projects.
+          and desktop software. I like collaborating with other students and bring a genuine sense of leadership
+          to both my academic work and everyday projects.
         </p>
 
-        <h2>Research interests</h2>
+        <h2>{t.about.researchInterests}</h2>
         <TagList tags={profile.researchInterests} />
       </div>
     </div>

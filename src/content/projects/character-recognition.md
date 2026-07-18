@@ -3,6 +3,7 @@ title: "Character Recognition — KNN vs. CNN"
 summary: "A comparative study of K-Nearest Neighbors and a convolutional neural network for handwritten character recognition."
 date: "2025"
 featured: false
+collaborators: ["Siham Larbi"]
 technologies:
   - Python
   - KNN

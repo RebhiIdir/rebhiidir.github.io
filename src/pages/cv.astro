@@ -1,56 +1,77 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
 import Container from "@components/Container.astro";
-import LinkButton from "@components/LinkButton.astro";
 import SectionHeading from "@components/SectionHeading.astro";
+import LinkButton from "@components/LinkButton.astro";
 import TagList from "@components/TagList.astro";
 import { profile } from "@data/profile";
+import { useTranslations } from "@i18n/ui";
+
+const t = useTranslations("en");
 ---
 
 <BaseLayout title={`CV - ${profile.name}`}>
   <Container class="py-16 sm:py-20">
-    <SectionHeading
-      eyebrow="CV"
-      title="Curriculum Vitae"
-      description="Master's student in Intelligent Computer Systems — machine learning, computer vision, and steganalysis of generative AI."
-    />
+    <SectionHeading eyebrow={t.cv.eyebrow} title={t.cv.title} description={t.cv.description} />
 
-    {
-      profile.cvPdfUrl ? (
-        <div class="mt-8">
-          <LinkButton href={profile.cvPdfUrl} label="Download PDF" variant="primary" />
-        </div>
-      ) : (
-        <p class="mt-8 max-w-2xl rounded border border-[var(--color-line)] bg-[var(--color-subtle)] p-4 text-sm text-[var(--color-muted)]">
-          Add your PDF file in public/documents, then set cvPdfUrl in src/data/profile.ts.
-        </p>
-      )
-    }
+    <div class="mt-8">
+      <LinkButton href={profile.cvPdfUrl} label={t.cv.download} variant="primary" />
+    </div>
 
     <div class="mt-12 grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
       <aside class="space-y-6">
         <div class="rounded border border-[var(--color-line)] bg-[var(--color-subtle)] p-5">
-          <p class="font-bold">Core skills</p>
+          <p class="font-bold">{t.cv.coreSkills}</p>
           <div class="mt-4">
             <TagList
               tags={[
-                "Python",
-                "PyTorch / TensorFlow",
                 "Machine Learning",
+                "Deep Learning",
                 "Computer Vision",
-                "Diffusion Models",
-                "Java (Spring, JAX-RS, Android)",
-                "C (systems)",
-                "SQL / MySQL",
-                "Apache Hadoop & Spark",
-                "Git & GitHub",
+                "NLP",
+                "Generative AI",
+                "PyTorch / TensorFlow",
+                "Scikit-learn / Diffusers",
+                "Stable Diffusion pipelines",
               ]}
             />
           </div>
         </div>
 
         <div class="rounded border border-[var(--color-line)] bg-[var(--color-subtle)] p-5">
-          <p class="font-bold">Languages</p>
+          <p class="font-bold">Libraries &amp; tools</p>
+          <div class="mt-4">
+            <TagList
+              tags={[
+                "PyTorch",
+                "TensorFlow",
+                "Scikit-learn",
+                "Diffusers",
+                "OpenCV",
+                "NLTK",
+                "NumPy",
+                "Pandas",
+                "Matplotlib",
+                "Git & GitHub",
+                "Jupyter Notebook",
+                "Google Colab",
+                "Kaggle",
+                "LaTeX",
+                "Linux/Bash",
+              ]}
+            />
+          </div>
+        </div>
+
+        <div class="rounded border border-[var(--color-line)] bg-[var(--color-subtle)] p-5">
+          <p class="font-bold">Mathematics</p>
+          <div class="mt-4">
+            <TagList tags={["Linear Algebra", "Differential Calculus", "Probability & Statistics", "Optimization"]} />
+          </div>
+        </div>
+
+        <div class="rounded border border-[var(--color-line)] bg-[var(--color-subtle)] p-5">
+          <p class="font-bold">{t.cv.languages}</p>
           <ul class="mt-3 space-y-1 text-sm text-[var(--color-muted)]">
             <li>Kabyle — native</li>
             <li>French — C1 (TCF)</li>
@@ -60,66 +81,45 @@ import { profile } from "@data/profile";
         </div>
 
         <div class="rounded border border-[var(--color-line)] bg-[var(--color-subtle)] p-5">
-          <p class="font-bold">Certifications</p>
+          <p class="font-bold">{t.cv.certifications}</p>
           <ul class="mt-3 space-y-1 text-sm text-[var(--color-muted)]">
             <li>CCNA: Introduction to Networks</li>
             <li>Endpoint Security</li>
           </ul>
         </div>
-
-        <div class="rounded border border-[var(--color-line)] bg-[var(--color-subtle)] p-5">
-          <p class="font-bold">Interests</p>
-          <ul class="mt-3 space-y-1 text-sm text-[var(--color-muted)]">
-            <li>Piano — arranging film and game scores</li>
-            <li>Football and cycling</li>
-            <li>Graphic design (Inkscape, Krita) and video editing (Kdenlive)</li>
-          </ul>
-        </div>
       </aside>
 
       <div class="content-prose">
-        <h2>Education</h2>
-        <p><strong>Master 2, Intelligent Computer Systems</strong> — Université Mouloud Mammeri de Tizi-Ouzou (2025–2026, in progress)</p>
-        <p><strong>Master 1, Intelligent Computer Systems</strong> — Université Mouloud Mammeri de Tizi-Ouzou (2024–2025)</p>
-        <p><strong>Licence (Bachelor) in Computer Science</strong> — Université Mouloud Mammeri de Tizi-Ouzou (2022–2024)</p>
-        <p><strong>L1, Mathematics and Computer Science</strong> — Université Mouloud Mammeri de Tizi-Ouzou (2021–2022)</p>
-        <p><strong>Baccalauréat, Scientific stream</strong>, Mention Bien — Lycée Frères Abbache, Mekla, Tizi-Ouzou (2021)</p>
+        <h2>{t.cv.education}</h2>
+        <p><strong>Master's Degree, Intelligent Computer Systems</strong> — Mouloud Mammeri University of Tizi-Ouzou (2024–2026)</p>
+        <p><strong>Bachelor's Degree in Computer Science</strong> — Mouloud Mammeri University of Tizi-Ouzou (2022–2024)</p>
+        <p><strong>First Year, Mathematics and Computer Science</strong> — Mouloud Mammeri University of Tizi-Ouzou (2021–2022)</p>
+        <p><strong>Scientific Baccalaureate</strong>, Honours — Frères Abbache High School, Mekla (2021)</p>
 
-        <h2>Research</h2>
+        <h2>{t.cv.research}</h2>
         <p>
-          <strong>Master's thesis (2025–2026):</strong> "Detecting steganography from generative models:
-          distinguishing steganographic images from synthetic images." Co-authored with Siham Larbi, supervised
-          by M. Samy Sadi and Mlle. Hedir Tassadit, Université Mouloud Mammeri de Tizi-Ouzou.
+          <strong>Master's Research Project (2026):</strong> "Detection of Generative Steganography: Distinguishing
+          Steganographic Images from Synthetic Images." Carried out with Siham Larbi, supervised by M. Samy Sadi
+          and Mlle. Hedir Tassadit, Université Mouloud Mammeri de Tizi-Ouzou.
         </p>
-        <p>
-          Re-implemented and evaluated the NS-DSer steganalysis baseline on Stable Diffusion 2.1, then extended
-          it with a CNN-based classifier and additional statistical/RPCM features to test detection against
-          distribution-preserving techniques such as mas-GRDH and Gaussian Shading. Full write-up on the{" "}
-          <a href="/research/generative-steganography">Research</a> page — code, notebooks, and datasets are
-          public on GitHub, Kaggle, and Colab.
-        </p>
-
-        <h2>Technical experience</h2>
-        <p><strong>Internship, District Commercial Naftal, Tizi-Ouzou (2024)</strong> — understanding the role of IT within a company; assessment of business processes, information systems, and management workflows; internship report.</p>
-        <p><strong>Bachelor's final project (L3, 2024)</strong> — management application for an industrial oil mill (Python/PyQt5, Qt Designer, MySQL), built in pair, with UML modeling and a written thesis.</p>
-        <p>Selected Master's and personal projects — see the <a href="/projects">Projects</a> page for details and links:</p>
         <ul>
-          <li>NS-DSer steganalysis pipeline — PF-ODE inversion, dual-GPU Kaggle setup, FLD Ensemble classifier (99.52% accuracy, AUC-ROC 1.0)</li>
-          <li>REST API for medical office management (Java, Spring, MySQL, JWT, Postman)</li>
-          <li>Smart lighting IoT system (ESP32, Raspberry Pi, Grafana)</li>
-          <li>Facial recognition system (feature extraction, model training, evaluation)</li>
-          <li>Image generation with a GAN on MNIST (TensorFlow)</li>
-          <li>Character recognition with KNN and CNN</li>
-          <li>Phylogenetic tree construction (bioinformatics)</li>
-          <li>Cinema ontology for the semantic web</li>
-          <li>2D game prototype in Godot Engine (C#/GDScript) — in progress</li>
+          <li>Diffusion-model-based approach</li>
+          <li>Creation and organization of a dedicated dataset</li>
+          <li>Design of an inversion pipeline using Stable Diffusion</li>
+          <li>Experimental reproduction of a state-of-the-art method (NS-DSer)</li>
+          <li>Development of a Deep Learning approach</li>
+          <li>Training and evaluation of classifiers (CNN, SVM, Random Forest, FLD, etc.)</li>
+          <li>Performance evaluation and experimental analysis</li>
         </ul>
+        <p>Full write-up on the <a href="/research/generative-steganography">Research</a> page.</p>
 
-        <h2>Publications</h2>
-        <p>
-          No publications yet. This section will be updated as the thesis work leads to conference or journal
-          submissions.
-        </p>
+        <h2>{t.cv.technicalExperience}</h2>
+        <p><strong>Computer Science Internship, District Commercial Naftal, Tizi-Ouzou (2024)</strong> — analysis of the company's information system, business process evaluation, study of enterprise information management, technical internship report.</p>
+        <p><strong>Bachelor's final project (2024)</strong> — Industrial Oil Mill Management Application (Python/PyQt5, Qt Designer, MySQL), with Siham Larbi: UML modeling and a written dissertation.</p>
+        <p>Selected applied Master's and personal projects — see the <a href="/projects">Projects</a> page for details, collaborators, and links.</p>
+
+        <h2>{t.cv.publications}</h2>
+        <p>No publications yet. This section will be updated as the thesis work leads to conference or journal submissions.</p>
       </div>
     </div>
   </Container>

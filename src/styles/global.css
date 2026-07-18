@@ -10,6 +10,16 @@
   --color-subtle: #f7f9fb;
 }
 
+:root[data-theme="dark"] {
+  --color-ink: #e6edf5;
+  --color-muted: #9fb0c3;
+  --color-line: #263548;
+  --color-accent: #6fb1e8;
+  --color-accent-soft: #142943;
+  --color-paper: #0b1420;
+  --color-subtle: #101c2c;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -22,6 +32,7 @@ body {
     Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
   line-height: 1.65;
+  transition: background-color 0.15s ease, color 0.15s ease;
 }
 
 a {

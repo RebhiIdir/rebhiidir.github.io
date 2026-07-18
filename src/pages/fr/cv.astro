@@ -1,0 +1,127 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Container from "@components/Container.astro";
+import SectionHeading from "@components/SectionHeading.astro";
+import LinkButton from "@components/LinkButton.astro";
+import TagList from "@components/TagList.astro";
+import { profile } from "@data/profile";
+import { useTranslations } from "@i18n/ui";
+
+const t = useTranslations("fr");
+---
+
+<BaseLayout title={`CV - ${profile.name}`} description={profile.subtitleFr}>
+  <Container class="py-16 sm:py-20">
+    <SectionHeading eyebrow={t.cv.eyebrow} title={t.cv.title} description={t.cv.description} />
+
+    <div class="mt-8">
+      <LinkButton href={profile.cvPdfUrlFr} label={t.cv.download} variant="primary" />
+    </div>
+
+    <div class="mt-12 grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
+      <aside class="space-y-6">
+        <div class="rounded border border-[var(--color-line)] bg-[var(--color-subtle)] p-5">
+          <p class="font-bold">{t.cv.coreSkills}</p>
+          <div class="mt-4">
+            <TagList
+              tags={[
+                "Machine Learning",
+                "Deep Learning",
+                "Vision par ordinateur",
+                "NLP",
+                "IA générative",
+                "PyTorch / TensorFlow",
+                "Scikit-learn / Diffusers",
+                "Pipelines Stable Diffusion",
+              ]}
+            />
+          </div>
+        </div>
+
+        <div class="rounded border border-[var(--color-line)] bg-[var(--color-subtle)] p-5">
+          <p class="font-bold">Bibliothèques &amp; outils</p>
+          <div class="mt-4">
+            <TagList
+              tags={[
+                "PyTorch",
+                "TensorFlow",
+                "Scikit-learn",
+                "Diffusers",
+                "OpenCV",
+                "NLTK",
+                "NumPy",
+                "Pandas",
+                "Matplotlib",
+                "Git & GitHub",
+                "Jupyter Notebook",
+                "Google Colab",
+                "Kaggle",
+                "LaTeX",
+                "Linux/Bash",
+              ]}
+            />
+          </div>
+        </div>
+
+        <div class="rounded border border-[var(--color-line)] bg-[var(--color-subtle)] p-5">
+          <p class="font-bold">Mathématiques</p>
+          <div class="mt-4">
+            <TagList tags={["Algèbre linéaire", "Calcul différentiel", "Probabilités & statistiques", "Optimisation"]} />
+          </div>
+        </div>
+
+        <div class="rounded border border-[var(--color-line)] bg-[var(--color-subtle)] p-5">
+          <p class="font-bold">{t.cv.languages}</p>
+          <ul class="mt-3 space-y-1 text-sm text-[var(--color-muted)]">
+            <li>Kabyle — langue maternelle</li>
+            <li>Français — C1 (TCF)</li>
+            <li>Arabe — courant</li>
+            <li>Anglais — courant</li>
+          </ul>
+        </div>
+
+        <div class="rounded border border-[var(--color-line)] bg-[var(--color-subtle)] p-5">
+          <p class="font-bold">{t.cv.certifications}</p>
+          <ul class="mt-3 space-y-1 text-sm text-[var(--color-muted)]">
+            <li>CCNA : Introduction to Networks</li>
+            <li>Endpoint Security</li>
+          </ul>
+        </div>
+      </aside>
+
+      <div class="content-prose">
+        <h2>{t.cv.education}</h2>
+        <p><strong>Master Systèmes Informatiques Intelligents</strong> — Université Mouloud Mammeri de Tizi-Ouzou (2024–2026)</p>
+        <p><strong>Licence en Informatique</strong> — Université Mouloud Mammeri de Tizi-Ouzou (2022–2024)</p>
+        <p><strong>L1 — Mathématique et informatique</strong> — Université Mouloud Mammeri de Tizi-Ouzou (2021–2022)</p>
+        <p><strong>Baccalauréat Scientifique</strong>, Mention Bien — Lycée Frères Abbache, Mekla (2021)</p>
+
+        <h2>{t.cv.research}</h2>
+        <p>
+          <strong>Projet de recherche de master (2026) :</strong> « Détection de stéganographie issue de modèles
+          génératifs : distinction entre images stéganographiées et images synthétiques ». Réalisé avec Siham
+          Larbi, sous la direction de M. Samy Sadi et Mlle Hedir Tassadit, Université Mouloud Mammeri de
+          Tizi-Ouzou.
+        </p>
+        <ul>
+          <li>Approche basée sur les modèles de diffusion</li>
+          <li>Création et structuration d'un dataset dédié</li>
+          <li>Conception d'un pipeline d'inversion avec Stable Diffusion</li>
+          <li>Reproduction expérimentale d'une méthode de l'état de l'art (NS-DSer)</li>
+          <li>Intégration d'une approche Deep Learning</li>
+          <li>Entraînement et évaluation de classificateurs (CNN, SVM, Random Forest, FLD, etc.)</li>
+          <li>Évaluation des performances et analyse expérimentale</li>
+        </ul>
+        <p>Article complet sur la page <a href="/fr/research/generative-steganography">Recherche</a>.</p>
+
+        <h2>{t.cv.technicalExperience}</h2>
+        <p><strong>Stage en informatique, District Commercial Naftal, Tizi-Ouzou (2024)</strong> — analyse du système d'information de l'entreprise, évaluation des processus métiers, étude de la gestion de l'information d'entreprise, rédaction d'un rapport de stage.</p>
+        <p><strong>Projet de fin d'études de licence (2024)</strong> — application de gestion pour une huilerie industrielle (Python/PyQt5, Qt Designer, MySQL), avec Siham Larbi : modélisation UML et rédaction d'un mémoire.</p>
+        <p>Projets appliqués sélectionnés (master et personnels) — voir la page <a href="/fr/projects">Projets</a> pour les détails, les collaborateurs et les liens.</p>
+
+        <h2>{t.cv.publications}</h2>
+        <p>Aucune publication pour l'instant. Cette section sera mise à jour à mesure que le travail de mémoire donnera lieu à des soumissions en conférence ou en revue.</p>
+      </div>
+    </div>
+  </Container>
+</BaseLayout>

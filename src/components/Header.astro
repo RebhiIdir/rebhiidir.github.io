@@ -1,13 +1,29 @@
 ---
 import Container from "./Container.astro";
-import { navigation, profile } from "@data/profile";
+import { profile, navRoutes } from "@data/profile";
+import { getLangFromUrl, useTranslations, localizePath } from "@i18n/ui";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 
 const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
+
+// Path to switch language while staying on the equivalent page.
+const pathWithoutLocale =
+  lang === "fr" ? currentPath.replace(/^\/fr/, "") || "/" : currentPath;
+const otherLang = lang === "fr" ? "en" : "fr";
+const langSwitchHref = localizePath(pathWithoutLocale, otherLang);
+
+const navKeys = ["home", "about", "research", "projects", "cv", "contact"] as const;
+const navItems = navRoutes.map((route, index) => ({
+  href: localizePath(route, lang),
+  label: t.nav[navKeys[index]],
+}));
 ---
 
-<header class="border-b border-[var(--color-line)] bg-white">
+<header class="border-b border-[var(--color-line)] bg-[var(--color-paper)]">
   <Container class="flex flex-col gap-4 py-4 md:min-h-20 md:flex-row md:items-center md:justify-between md:gap-6">
-    <a href="/" class="flex items-center gap-3" aria-label={`${profile.name} home`}>
+    <a href={localizePath("/", lang)} class="flex items-center gap-3" aria-label={`${profile.name} home`}>
       <span class="flex h-10 w-10 items-center justify-center rounded border border-[var(--color-line)] text-sm font-bold text-[var(--color-accent)]">
         IR
       </span>
@@ -17,30 +33,79 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
       </span>
     </a>
 
-    <nav class="flex flex-wrap items-center gap-1" aria-label="Main navigation">
-      {
-        navigation.map((item) => {
-          const normalizedHref = item.href.replace(/\/$/, "") || "/";
-          const isActive =
-            normalizedHref === "/"
-              ? currentPath === "/"
-              : currentPath === normalizedHref || currentPath.startsWith(`${normalizedHref}/`);
+    <div class="flex flex-wrap items-center gap-2">
+      <nav class="flex flex-wrap items-center gap-1" aria-label="Main navigation">
+        {
+          navItems.map((item) => {
+            const normalizedHref = item.href.replace(/\/$/, "") || "/";
+            const isActive =
+              normalizedHref === "/"
+                ? currentPath === "/"
+                : currentPath === normalizedHref || currentPath.startsWith(`${normalizedHref}/`);
 
-          return (
-            <a
-              href={item.href}
-              class:list={[
-                "rounded px-3 py-2 text-sm font-medium transition-colors",
-                isActive
-                  ? "bg-[var(--color-accent-soft)] text-[var(--color-accent)]"
-                  : "text-[var(--color-muted)] hover:bg-slate-50 hover:text-[var(--color-ink)]",
-              ]}
-            >
-              {item.label}
-            </a>
-          );
-        })
-      }
-    </nav>
+            return (
+              <a
+                href={item.href}
+                class:list={[
+                  "rounded px-3 py-2 text-sm font-medium transition-colors",
+                  isActive
+                    ? "bg-[var(--color-accent-soft)] text-[var(--color-accent)]"
+                    : "text-[var(--color-muted)] hover:bg-[var(--color-subtle)] hover:text-[var(--color-ink)]",
+                ]}
+              >
+                {item.label}
+              </a>
+            );
+          })
+        }
+      </nav>
+
+      <div class="ml-2 flex items-center gap-2 border-l border-[var(--color-line)] pl-3">
+        <a
+          href={langSwitchHref}
+          class="rounded border border-[var(--color-line)] px-2.5 py-1.5 text-xs font-bold uppercase tracking-wide text-[var(--color-muted)] transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
+        >
+          {otherLang.toUpperCase()}
+        </a>
+
+        <button
+          id="theme-toggle"
+          type="button"
+          aria-label={t.theme.toggle}
+          class="flex h-8 w-8 items-center justify-center rounded border border-[var(--color-line)] text-[var(--color-muted)] transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
+        >
+          <svg id="theme-icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hidden h-4 w-4">
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+          </svg>
+          <svg id="theme-icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-4 w-4">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" />
+          </svg>
+        </button>
+      </div>
+    </div>
   </Container>
 </header>
+
+<script>
+  const root = document.documentElement;
+  const button = document.getElementById("theme-toggle");
+  const sun = document.getElementById("theme-icon-sun");
+  const moon = document.getElementById("theme-icon-moon");
+
+  function syncIcons() {
+    const isDark = root.getAttribute("data-theme") === "dark";
+    sun?.classList.toggle("hidden", !isDark);
+    moon?.classList.toggle("hidden", isDark);
+  }
+
+  syncIcons();
+
+  button?.addEventListener("click", () => {
+    const isDark = root.getAttribute("data-theme") === "dark";
+    const next = isDark ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    localStorage.setItem("theme", next);
+    syncIcons();
+  });
+</script>

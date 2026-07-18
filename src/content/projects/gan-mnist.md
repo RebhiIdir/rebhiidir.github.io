@@ -3,6 +3,7 @@ title: "Handwritten Digit Generation with a GAN"
 summary: "A generative adversarial network trained to produce handwritten digits from the MNIST dataset."
 date: "2025"
 featured: true
+collaborators: ["Siham Larbi"]
 technologies:
   - Python
   - TensorFlow

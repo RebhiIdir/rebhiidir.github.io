@@ -3,6 +3,7 @@ title: "Oil Mill Management Application (Bachelor's project)"
 summary: "A desktop management application for an industrial oil mill, built as a Bachelor's (L3) final-year project."
 date: "2024"
 featured: false
+collaborators: ["Siham Larbi"]
 technologies:
   - Python
   - PyQt5

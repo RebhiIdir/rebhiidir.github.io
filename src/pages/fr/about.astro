@@ -1,0 +1,75 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Container from "@components/Container.astro";
+import SectionHeading from "@components/SectionHeading.astro";
+import TagList from "@components/TagList.astro";
+import { profile } from "@data/profile";
+import { useTranslations } from "@i18n/ui";
+
+const t = useTranslations("fr");
+---
+
+<BaseLayout title={`À propos - ${profile.name}`} description={profile.subtitleFr}>
+  <Container class="py-16 sm:py-20">
+    <SectionHeading eyebrow={t.about.eyebrow} title={t.about.title} description={t.about.description} />
+
+    <div class="mt-10 grid gap-10 lg:grid-cols-[0.75fr_1.25fr]">
+      <aside class="rounded border border-[var(--color-line)] bg-[var(--color-subtle)] p-5">
+        <p class="text-sm font-bold">{t.about.atAGlance}</p>
+        <dl class="mt-4 space-y-4 text-sm">
+          <div>
+            <dt class="font-bold text-[var(--color-ink)]">{t.about.name}</dt>
+            <dd class="text-[var(--color-muted)]">{profile.name}</dd>
+          </div>
+          <div>
+            <dt class="font-bold text-[var(--color-ink)]">{t.about.location}</dt>
+            <dd class="text-[var(--color-muted)]">{profile.locationFr}</dd>
+          </div>
+          <div>
+            <dt class="font-bold text-[var(--color-ink)]">{t.about.focus}</dt>
+            <dd class="text-[var(--color-muted)]">{t.about.focusValue}</dd>
+          </div>
+          <div>
+            <dt class="font-bold text-[var(--color-ink)]">{t.about.languages}</dt>
+            <dd class="text-[var(--color-muted)]">Kabyle (langue maternelle), Français (C1), Arabe, Anglais</dd>
+          </div>
+        </dl>
+      </aside>
+
+      <div class="content-prose max-w-3xl">
+        <p>
+          Je suis diplômé du Master Systèmes Informatiques Intelligents de l'Université Mouloud Mammeri de
+          Tizi-Ouzou, spécialisé dans la conception de solutions basées sur l'IA. Ce qui me définit le mieux, c'est
+          ma polyvalence : je m'adapte rapidement à différents contextes et je maîtrise l'outil nécessaire à
+          chaque situation, aussi bien en IA qu'en informatique de façon plus générale.
+        </p>
+        <p>
+          Mon mémoire de master, <em>« Détection de stéganographie issue de modèles génératifs : distinction
+          entre images stéganographiées et images synthétiques »</em>, se situe au croisement de la vision par
+          ordinateur, de la stéganalyse et de l'IA générative. Il pose une question simple mais difficile : à
+          mesure que les modèles de diffusion permettent d'intégrer un message secret directement pendant la
+          génération de l'image plutôt qu'après coup, les outils de stéganalyse existants peuvent-ils encore
+          distinguer une image saine d'une image compromise ? En collaboration avec Siham Larbi, sous la direction
+          de M. Samy Sadi et Mlle Hedir Tassadit, j'ai ré-implémenté le pipeline de détection NS-DSer sur Stable
+          Diffusion 2.1 et l'ai évalué face à Message Concealment, mas-GRDH et Gaussian Shading — trois techniques
+          à la résistance à la détection très différente.
+        </p>
+        <p>
+          La plupart des projets appliqués présentés sur ce site — de l'API REST au système de reconnaissance
+          faciale — ont également été réalisés avec Siham Larbi, et certains avec Nouria Benamara et Mohamed
+          Amine Terdjemane ; chaque fiche projet crédite directement ses collaborateurs.
+        </p>
+        <p>
+          Au-delà du mémoire, j'aime construire des choses de bout en bout : de l'implémentation de réseaux de
+          neurones et d'algorithmes de ML à la main (avec l'algèbre linéaire comme socle) au déploiement
+          d'applications complètes — API REST, systèmes IoT, logiciels de bureau. J'aime collaborer avec d'autres
+          étudiants et j'apporte un vrai sens du leadership, aussi bien dans mon travail académique que dans mes
+          projets personnels.
+        </p>
+
+        <h2>{t.about.researchInterests}</h2>
+        <TagList tags={profile.researchInterestsFr} />
+      </div>
+    </div>
+  </Container>
+</BaseLayout>

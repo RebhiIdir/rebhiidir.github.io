@@ -7,16 +7,16 @@ import SectionHeading from "@components/SectionHeading.astro";
 import { profile } from "@data/profile";
 import { useTranslations } from "@i18n/ui";
 
-const t = useTranslations("en");
-const research = (await getCollection("research")).sort((a, b) => b.data.date.localeCompare(a.data.date));
+const t = useTranslations("fr");
+const research = (await getCollection("researchFr")).sort((a, b) => b.data.date.localeCompare(a.data.date));
 ---
 
-<BaseLayout title={`Research - ${profile.name}`}>
+<BaseLayout title={`Recherche - ${profile.name}`} description={profile.subtitleFr}>
   <Container class="py-16 sm:py-20">
     <SectionHeading eyebrow={t.research.eyebrow} title={t.research.title} description={t.research.description} />
 
     <div class="mt-10 grid gap-5 md:grid-cols-2">
-      {research.map((entry) => <ResearchCard entry={entry} readMoreLabel={t.research.readMore} collaboratorsLabel={t.research.collaborators} />)}
+      {research.map((entry) => <ResearchCard entry={entry} basePath="/fr/research" readMoreLabel={t.research.readMore} collaboratorsLabel={t.research.collaborators} />)}
     </div>
   </Container>
 </BaseLayout>

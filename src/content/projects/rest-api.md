@@ -3,6 +3,7 @@ title: "Medical Office REST API"
 summary: "A Java/Spring REST API for managing patients, appointments, and medical records, with JWT authentication and full server-side integration."
 date: "2025"
 featured: true
+collaborators: ["Siham Larbi"]
 technologies:
   - Java
   - Spring

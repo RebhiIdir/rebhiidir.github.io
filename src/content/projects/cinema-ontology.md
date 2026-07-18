@@ -3,6 +3,7 @@ title: "Cinema Ontology for the Semantic Web"
 summary: "An ontology modeling the domain of cinema, designed for integration with semantic web technologies."
 date: "2024"
 featured: false
+collaborators: ["Siham Larbi"]
 technologies:
   - Ontology
   - Semantic Web

@@ -4,6 +4,7 @@ summary: "Master's thesis: can steganalysis still tell a clean image from one ca
 status: "Master's thesis, defended 2026"
 date: "2026"
 featured: true
+collaborators: ["Siham Larbi"]
 tags:
   - Steganalysis
   - Diffusion Models

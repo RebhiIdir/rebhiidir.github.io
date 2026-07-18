@@ -3,6 +3,7 @@ title: "Phylogenetic Tree Construction"
 summary: "An algorithmic implementation for building phylogenetic trees from biological data (bioinformatics)."
 date: "2025"
 featured: false
+collaborators: ["Siham Larbi", "Nouria Benamara", "Mohamed Amine Terdjemane"]
 technologies:
   - Python
   - Algorithms

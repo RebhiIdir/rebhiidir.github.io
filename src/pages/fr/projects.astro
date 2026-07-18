@@ -7,16 +7,16 @@ import SectionHeading from "@components/SectionHeading.astro";
 import { profile } from "@data/profile";
 import { useTranslations } from "@i18n/ui";
 
-const t = useTranslations("en");
-const projects = (await getCollection("projects")).sort((a, b) => b.data.date.localeCompare(a.data.date));
+const t = useTranslations("fr");
+const projects = (await getCollection("projectsFr")).sort((a, b) => b.data.date.localeCompare(a.data.date));
 ---
 
-<BaseLayout title={`Projects - ${profile.name}`}>
+<BaseLayout title={`Projets - ${profile.name}`} description={profile.subtitleFr}>
   <Container class="py-16 sm:py-20">
     <SectionHeading eyebrow={t.projects.eyebrow} title={t.projects.title} description={t.projects.description} />
 
     <div class="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-      {projects.map((entry) => <ProjectCard entry={entry} viewLabel={t.projects.viewProject} collaboratorsLabel={t.projects.collaborators} />)}
+      {projects.map((entry) => <ProjectCard entry={entry} basePath="/fr/projects" viewLabel={t.projects.viewProject} collaboratorsLabel={t.projects.collaborators} />)}
     </div>
   </Container>
 </BaseLayout>

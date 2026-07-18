@@ -3,6 +3,7 @@ title: "Smart Lighting IoT System"
 summary: "A connected-object network that automates lighting based on environmental conditions, with real-time monitoring in Grafana."
 date: "2025"
 featured: true
+collaborators: ["Siham Larbi"]
 technologies:
   - IoT
   - ESP32

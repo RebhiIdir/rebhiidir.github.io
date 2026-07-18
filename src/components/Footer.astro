@@ -1,15 +1,18 @@
 ---
 import Container from "./Container.astro";
 import { profile } from "@data/profile";
+import { getLangFromUrl, useTranslations } from "@i18n/ui";
 
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 const year = new Date().getFullYear();
 ---
 
 <footer class="mt-24 border-t border-[var(--color-line)]">
   <Container class="flex flex-col gap-4 py-8 text-sm text-[var(--color-muted)] sm:flex-row sm:items-center sm:justify-between">
-    <p>&copy; {year} {profile.name}. Research portfolio.</p>
+    <p>&copy; {year} {profile.name}. {t.footer.tagline}</p>
     <div class="flex flex-wrap gap-4">
-      <a class="hover:text-[var(--color-accent)]" href={`mailto:${profile.email}`}>Email</a>
+      <a class="hover:text-[var(--color-accent)]" href={`mailto:${profile.email}`}>{t.footer.email}</a>
       <a class="hover:text-[var(--color-accent)]" href={profile.links.github}>GitHub</a>
       <a class="hover:text-[var(--color-accent)]" href={profile.links.linkedin}>LinkedIn</a>
     </div>

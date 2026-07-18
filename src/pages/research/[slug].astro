@@ -4,7 +4,9 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 import Container from "@components/Container.astro";
 import LinkButton from "@components/LinkButton.astro";
 import TagList from "@components/TagList.astro";
+import Collaborators from "@components/Collaborators.astro";
 import { profile } from "@data/profile";
+import { useTranslations } from "@i18n/ui";
 
 export async function getStaticPaths() {
   const entries = await getCollection("research");
@@ -15,6 +17,7 @@ export async function getStaticPaths() {
   }));
 }
 
+const t = useTranslations("en");
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 ---
@@ -22,7 +25,7 @@ const { Content } = await render(entry);
 <BaseLayout title={`${entry.data.title} - ${profile.name}`} description={entry.data.summary}>
   <Container class="py-16 sm:py-20">
     <article class="mx-auto max-w-4xl">
-      <a href="/research" class="text-sm font-bold text-[var(--color-accent)]">&lt;- Research</a>
+      <a href="/research" class="text-sm font-bold text-[var(--color-accent)]">{t.research.back}</a>
       <div class="mt-8">
         <p class="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-[var(--color-accent)]">
           {entry.data.status} / {entry.data.date}
@@ -32,6 +35,11 @@ const { Content } = await render(entry);
         <div class="mt-6">
           <TagList tags={entry.data.tags} />
         </div>
+        {entry.data.collaborators.length > 0 && (
+          <div class="mt-4">
+            <Collaborators names={entry.data.collaborators} label={t.research.collaborators} />
+          </div>
+        )}
       </div>
 
       {
