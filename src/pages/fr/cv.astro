@@ -4,6 +4,7 @@ import Container from "@components/Container.astro";
 import SectionHeading from "@components/SectionHeading.astro";
 import LinkButton from "@components/LinkButton.astro";
 import TagList from "@components/TagList.astro";
+import Certifications from "@components/Certifications.astro";
 import { profile } from "@data/profile";
 import { useTranslations } from "@i18n/ui";
 
@@ -15,7 +16,7 @@ const t = useTranslations("fr");
     <SectionHeading eyebrow={t.cv.eyebrow} title={t.cv.title} description={t.cv.description} />
 
     <div class="mt-8">
-      <LinkButton href={profile.cvPdfUrlFr} label={t.cv.download} variant="primary" />
+      <LinkButton href={profile.cvPdfUrlFr} label={t.cv.download} variant="primary" icon="download" />
     </div>
 
     <div class="mt-12 grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
@@ -82,10 +83,12 @@ const t = useTranslations("fr");
 
         <div class="rounded border border-[var(--color-line)] bg-[var(--color-subtle)] p-5">
           <p class="font-bold">{t.cv.certifications}</p>
-          <ul class="mt-3 space-y-1 text-sm text-[var(--color-muted)]">
-            <li>CCNA : Introduction to Networks</li>
-            <li>Endpoint Security</li>
-          </ul>
+          <div class="mt-4">
+            <Certifications lang="fr" />
+          </div>
+          <p class="mt-3 text-xs text-[var(--color-muted)]">
+            Certifications Cisco Networking Academy (cours en autoformation).
+          </p>
         </div>
       </aside>
 

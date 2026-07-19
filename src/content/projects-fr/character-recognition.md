@@ -10,8 +10,8 @@ technologies:
   - CNN
   - Machine Learning
 links:
-  - label: "Rapport"
-    url: "https://docs.google.com/document/d/1vG8jpNDa84nUMN9luiB2bzNVGonwz-y0_ToxxvdH_7M/edit?usp=sharing"
+  - label: "Rapport (PDF)"
+    url: "/documents/rapport-character-recognition.pdf"
   - label: "Colab — KNN"
     url: "https://colab.research.google.com/drive/1cBHU_dhdKLigD5qXURLS0nL-VRUej9R4?usp=sharing"
   - label: "Colab — CNN"

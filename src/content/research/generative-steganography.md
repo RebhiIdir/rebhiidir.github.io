@@ -29,11 +29,11 @@ Diffusion models such as Stable Diffusion made it possible to embed a secret mes
 
 ## Context
 
-The rise of diffusion-based generative AI enabled **DM-GIS** (Diffusion Model-based Generative Image Steganography): a secret message is encoded directly into the latent noise that seeds the generation process, so there is no longer a "modified cover" to compare against — the image was suspicious from the very first denoising step. This sits at the crossroads of computer vision, steganalysis, generative AI, and trustworthy AI.
+The rise of diffusion-based generative AI enabled **DM-GIS** (Diffusion Model-based Generative Image Steganography): a secret message is encoded directly into the latent noise that seeds the generation process, so there is no longer a "modified cover" to compare against — the image was suspicious from the very first denoising step. This sits at the crossroads of computer vision, steganalysis, and generative AI.
 
 ## Research question
 
-Classical steganalysis looks for traces of tampering in the pixel or frequency domain of an existing image. **NS-DSer**, the current reference steganalyzer, instead inverts the diffusion trajectory to recover the latent noise and tests whether its statistical distribution still looks Gaussian. This works well against naive embedding, but techniques explicitly designed to preserve the Gaussian distribution of the noise — like the **Gaussian Shading** watermark — camouflage the hidden signal almost perfectly. The thesis investigates how far detection can be pushed against these distribution-preserving methods, and what, if anything, still leaks through.
+Classical steganalysis looks for traces of tampering in the pixel or frequency domain of an existing image. **NS-DSer**, the current reference steganalyzer [Zhu et al., 2026], instead inverts the diffusion trajectory to recover the latent noise and tests whether its statistical distribution still looks Gaussian. This works well against naive embedding, but techniques explicitly designed to preserve the Gaussian distribution of the noise — like the **Gaussian Shading** watermark — camouflage the hidden signal almost perfectly. The thesis investigates how far detection can be pushed against these distribution-preserving methods, and what, if anything, still leaks through.
 
 ## Methodology
 
@@ -72,3 +72,7 @@ The full pipeline, notebooks, and generated datasets are public. The environment
 - **Google Colab** — [CNN extension & UNet hooks](https://colab.research.google.com/drive/1r7A-xs2FrWvubkwBnHGWmOcWfun3WmaE?usp=sharing)
 - **Google Colab** — [Gaussian Shading test data generation](https://colab.research.google.com/drive/1O4siaNVnEL5UEvyOH_7e1hvkTKlUGgGp?usp=sharing)
 - **Datasets** — [cover and stego images (Google Drive)](https://drive.google.com/drive/folders/13-byY7SyrEgkCZvn-GYbNgRFf3-3WUAf?usp=sharing)
+
+## References
+
+- J. Zhu, Z. Chen, J. Liu, L. Yang, Y. Zhou, W. Luo, and X. Xie, "Rethinking Security of Diffusion-based Generative Steganography," arXiv:2602.10219, February 2026.

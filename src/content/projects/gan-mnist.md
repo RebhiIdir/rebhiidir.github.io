@@ -10,8 +10,8 @@ technologies:
   - GAN
   - Generative AI
 links:
-  - label: "Report"
-    url: "https://docs.google.com/document/d/1LbzA2kdtLbRaRL8ZNzMOdLX7rp927d9jFMn3xxDDGVk/edit?usp=sharing"
+  - label: "Report (PDF)"
+    url: "/documents/rapport-gan-mnist.pdf"
   - label: "Colab"
     url: "https://colab.research.google.com/drive/1hyJz0T_4PCdgl1j8UsC1HEyioZEvrNfo?usp=sharing"
 ---

@@ -33,10 +33,10 @@ const projects = (await getCollection("projects"))
         <p class="mt-6 max-w-2xl text-lg text-[var(--color-muted)]">{profile.subtitle}</p>
 
         <div class="mt-8 flex flex-wrap gap-3">
-          <LinkButton href={profile.cvPageUrl} label={t.home.viewCv} variant="primary" />
-          <LinkButton href={profile.links.github} label="GitHub" />
-          <LinkButton href={profile.links.kaggle} label="Kaggle" />
-          <LinkButton href={profile.links.linkedin} label="LinkedIn" />
+          <LinkButton href={profile.cvPageUrl} label={t.home.viewCv} variant="primary" icon="external" />
+          <LinkButton href={profile.links.github} label="GitHub" icon="github" />
+          <LinkButton href={profile.links.kaggle} label="Kaggle" icon="kaggle" />
+          <LinkButton href={profile.links.linkedin} label="LinkedIn" icon="linkedin" />
         </div>
       </div>
 

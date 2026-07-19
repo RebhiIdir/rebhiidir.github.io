@@ -9,9 +9,10 @@
     "preview": "node ./scripts/astro.mjs preview"
   },
   "dependencies": {
+    "@astrojs/markdown-remark": "^7.2.1",
     "@tailwindcss/vite": "latest",
     "astro": "latest",
+    "rehype-external-links": "^3.0.0",
     "tailwindcss": "latest"
-  },
-  "devDependencies": {}
+  }
 }

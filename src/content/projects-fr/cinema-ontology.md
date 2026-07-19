@@ -11,8 +11,8 @@ technologies:
 links:
   - label: "GitHub"
     url: "https://github.com/RebhiIdir/cinema-ontology.git"
-  - label: "Documentation"
-    url: "https://docs.google.com/document/d/1Q8DuC19A3-GVahvu74cgxtcS3idwQBT08-_Zi_9njEI/edit?usp=sharing"
+  - label: "Documentation (PDF)"
+    url: "/documents/rapport-ontologie-cinema.pdf"
 ---
 
 ## Objectif

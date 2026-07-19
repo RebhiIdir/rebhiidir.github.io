@@ -1,0 +1,36 @@
+---
+import { certifications } from "@data/certifications";
+
+interface Props {
+  lang?: "en" | "fr";
+}
+
+const { lang = "en" } = Astro.props;
+---
+
+<div class="space-y-3">
+  {
+    certifications.map((cert) => (
+      <a
+        href={cert.url}
+        target={cert.url !== "#" ? "_blank" : undefined}
+        rel={cert.url !== "#" ? "noopener noreferrer" : undefined}
+        class="flex items-center gap-3 rounded border border-[var(--color-line)] bg-[var(--color-paper)] p-3 transition-colors hover:border-[var(--color-accent)]"
+      >
+        <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--color-accent-soft)] text-[var(--color-accent)]">
+          <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m12 2 3 6 6.5.9-4.7 4.6 1.1 6.5L12 17l-5.9 3 1.1-6.5-4.7-4.6L9 8Z" />
+          </svg>
+        </span>
+        <span class="min-w-0">
+          <span class="block truncate text-sm font-bold text-[var(--color-ink)]">
+            {lang === "fr" ? cert.titleFr : cert.title}
+          </span>
+          <span class="block truncate text-xs text-[var(--color-muted)]">
+            {lang === "fr" ? cert.issuerFr : cert.issuer}
+          </span>
+        </span>
+      </a>
+    ))
+  }
+</div>

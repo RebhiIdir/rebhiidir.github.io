@@ -29,11 +29,11 @@ Les modèles de diffusion comme Stable Diffusion permettent désormais d'intégr
 
 ## Contexte
 
-L'essor de l'IA générative par diffusion a rendu possible la **DM-GIS** (stéganographie générative basée sur les modèles de diffusion) : un message secret est encodé directement dans le bruit latent qui amorce le processus de génération. Il n'y a donc plus de "cover" modifiée à comparer — l'image est suspecte dès la première étape de débruitage. Ce travail se situe au croisement de la vision par ordinateur, de la stéganalyse, de l'IA générative et de l'IA de confiance.
+L'essor de l'IA générative par diffusion a rendu possible la **DM-GIS** (stéganographie générative basée sur les modèles de diffusion) : un message secret est encodé directement dans le bruit latent qui amorce le processus de génération. Il n'y a donc plus de "cover" modifiée à comparer — l'image est suspecte dès la première étape de débruitage. Ce travail se situe au croisement de la vision par ordinateur, de la stéganalyse et de l'IA générative.
 
 ## Problématique
 
-La stéganalyse classique cherche des traces de manipulation dans le domaine spatial ou fréquentiel d'une image existante. **NS-DSer**, le stéganalyseur de référence actuel, inverse plutôt la trajectoire de diffusion pour retrouver le bruit latent et teste si sa distribution statistique ressemble encore à une gaussienne. Cette approche fonctionne bien contre un embedding naïf, mais des techniques conçues spécifiquement pour préserver la distribution gaussienne du bruit — comme le watermark **Gaussian Shading** — camouflent presque parfaitement le signal caché. Le mémoire étudie jusqu'où la détection peut être poussée contre ces techniques préservant la distribution, et ce qui, éventuellement, laisse encore une trace.
+La stéganalyse classique cherche des traces de manipulation dans le domaine spatial ou fréquentiel d'une image existante. **NS-DSer**, le stéganalyseur de référence actuel [Zhu et al., 2026], inverse plutôt la trajectoire de diffusion pour retrouver le bruit latent et teste si sa distribution statistique ressemble encore à une gaussienne. Cette approche fonctionne bien contre un embedding naïf, mais des techniques conçues spécifiquement pour préserver la distribution gaussienne du bruit — comme le watermark **Gaussian Shading** — camouflent presque parfaitement le signal caché. Le mémoire étudie jusqu'où la détection peut être poussée contre ces techniques préservant la distribution, et ce qui, éventuellement, laisse encore une trace.
 
 ## Méthodologie
 
@@ -72,3 +72,7 @@ Le pipeline complet, les notebooks et les jeux de données générés sont publi
 - **Google Colab** — [extension CNN et hooks UNet](https://colab.research.google.com/drive/1r7A-xs2FrWvubkwBnHGWmOcWfun3WmaE?usp=sharing)
 - **Google Colab** — [génération des données de test Gaussian Shading](https://colab.research.google.com/drive/1O4siaNVnEL5UEvyOH_7e1hvkTKlUGgGp?usp=sharing)
 - **Datasets** — [images cover et stego (Google Drive)](https://drive.google.com/drive/folders/13-byY7SyrEgkCZvn-GYbNgRFf3-3WUAf?usp=sharing)
+
+## Références
+
+- J. Zhu, Z. Chen, J. Liu, L. Yang, Y. Zhou, W. Luo, et X. Xie, « Rethinking Security of Diffusion-based Generative Steganography », arXiv:2602.10219, février 2026.

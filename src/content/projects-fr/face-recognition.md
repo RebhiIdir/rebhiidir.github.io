@@ -9,8 +9,8 @@ technologies:
   - Vision par ordinateur
   - Machine Learning
 links:
-  - label: "Rapport"
-    url: "https://docs.google.com/document/d/175xvjGikgLx3yBOPz0-am0KNl5y-ManH8qaM4fEHGzk/edit?usp=sharing"
+  - label: "Rapport (PDF)"
+    url: "/documents/rapport-facial-recognition.pdf"
   - label: "Colab"
     url: "https://colab.research.google.com/drive/1Ybj56fBPSgsmG83lN4oUVSytkMtSJ8p2?usp=sharing"
 ---

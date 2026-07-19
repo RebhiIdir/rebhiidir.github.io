@@ -34,14 +34,14 @@ const navItems = navRoutes.map((route, index) => ({
     </a>
 
     <div class="flex flex-wrap items-center gap-2">
-      <nav class="flex flex-wrap items-center gap-1" aria-label="Main navigation">
+        <div class="flex flex-wrap items-center gap-1" aria-label="Main navigation" role="navigation">
         {
           navItems.map((item) => {
             const normalizedHref = item.href.replace(/\/$/, "") || "/";
-            const isActive =
-              normalizedHref === "/"
-                ? currentPath === "/"
-                : currentPath === normalizedHref || currentPath.startsWith(`${normalizedHref}/`);
+            const isHomeLink = normalizedHref === "/" || normalizedHref === "/fr";
+            const isActive = isHomeLink
+              ? currentPath === normalizedHref
+              : currentPath === normalizedHref || currentPath.startsWith(`${normalizedHref}/`);
 
             return (
               <a
@@ -58,7 +58,7 @@ const navItems = navRoutes.map((route, index) => ({
             );
           })
         }
-      </nav>
+        </div>
 
       <div class="ml-2 flex items-center gap-2 border-l border-[var(--color-line)] pl-3">
         <a

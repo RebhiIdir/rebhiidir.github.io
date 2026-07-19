@@ -6,6 +6,7 @@
   --color-line: #d8e0ea;
   --color-accent: #0f3d5e;
   --color-accent-soft: #e8f0f6;
+  --color-accent-contrast: #ffffff;
   --color-paper: #ffffff;
   --color-subtle: #f7f9fb;
 }
@@ -16,6 +17,7 @@
   --color-line: #263548;
   --color-accent: #6fb1e8;
   --color-accent-soft: #142943;
+  --color-accent-contrast: #061726;
   --color-paper: #0b1420;
   --color-subtle: #101c2c;
 }
@@ -88,5 +90,34 @@ a {
 }
 
 .content-prose strong {
+  color: var(--color-ink);
+}
+
+.content-prose table {
+  width: 100%;
+  margin: 1.25rem 0 1.5rem 0;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.content-prose th,
+.content-prose td {
+  border: 1px solid var(--color-line);
+  padding: 0.6rem 0.8rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.content-prose th {
+  background: var(--color-subtle);
+  color: var(--color-ink);
+  font-weight: 700;
+}
+
+.content-prose tbody tr:nth-child(even) {
+  background: color-mix(in srgb, var(--color-subtle), transparent 40%);
+}
+
+.content-prose td:has(strong) {
   color: var(--color-ink);
 }
