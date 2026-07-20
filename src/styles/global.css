@@ -197,14 +197,6 @@ header[class*="border-b"] {
   isolation: isolate;
 }
 
-@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
-  header[class*="border-b"] {
-    background: color-mix(in srgb, var(--color-paper), transparent 8%);
-    backdrop-filter: saturate(180%) blur(10px);
-    -webkit-backdrop-filter: saturate(180%) blur(10px);
-  }
-}
-
 /* ---------- Entrance animation for cards & sections ---------- */
 
 @keyframes rise-in {
