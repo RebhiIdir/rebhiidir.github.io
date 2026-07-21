@@ -1,0 +1,124 @@
+---
+import { web3FormsAccessKeys } from "@data/contactForm";
+import { useTranslations, type Locale } from "@i18n/ui";
+
+interface Props {
+  lang?: Locale;
+}
+
+const { lang = "en" } = Astro.props;
+const t = useTranslations(lang);
+const keysJson = JSON.stringify(web3FormsAccessKeys);
+---
+
+<div class="rounded border border-[var(--color-line)] bg-[var(--color-paper)] p-5">
+  <p class="text-sm font-bold uppercase tracking-[0.14em] text-[var(--color-accent)]">{t.contact.formTitle}</p>
+  <p class="mt-3 text-sm text-[var(--color-muted)]">{t.contact.formDescription}</p>
+
+  <form id="contact-form" class="mt-5 space-y-4" data-keys={keysJson}>
+    <div>
+      <label for="cf-name" class="mb-1 block text-xs font-bold text-[var(--color-muted)]">{t.contact.formName}</label>
+      <input
+        id="cf-name"
+        name="name"
+        type="text"
+        required
+        class="w-full rounded border border-[var(--color-line)] bg-[var(--color-subtle)] px-3 py-2 text-sm text-[var(--color-ink)] outline-none focus:border-[var(--color-accent)]"
+      />
+    </div>
+    <div>
+      <label for="cf-email" class="mb-1 block text-xs font-bold text-[var(--color-muted)]">{t.contact.formEmail}</label>
+      <input
+        id="cf-email"
+        name="email"
+        type="email"
+        required
+        class="w-full rounded border border-[var(--color-line)] bg-[var(--color-subtle)] px-3 py-2 text-sm text-[var(--color-ink)] outline-none focus:border-[var(--color-accent)]"
+      />
+    </div>
+    <div>
+      <label for="cf-message" class="mb-1 block text-xs font-bold text-[var(--color-muted)]">{t.contact.formMessage}</label>
+      <textarea
+        id="cf-message"
+        name="message"
+        rows="5"
+        required
+        class="w-full rounded border border-[var(--color-line)] bg-[var(--color-subtle)] px-3 py-2 text-sm text-[var(--color-ink)] outline-none focus:border-[var(--color-accent)]"
+      ></textarea>
+    </div>
+
+    <!-- Honeypot field: hidden from real visitors, catches simple spam bots -->
+    <input type="text" name="botcheck" class="hidden" tabindex="-1" autocomplete="off" />
+
+    <button
+      type="submit"
+      class="inline-flex min-h-11 items-center justify-center gap-2 rounded border border-[var(--color-accent)] bg-[var(--color-accent)] px-5 text-sm font-bold transition-opacity hover:opacity-90 disabled:opacity-60"
+      style="color: var(--color-accent-contrast)"
+    >
+      {t.contact.formSend}
+    </button>
+
+    <p id="cf-status" class="text-sm" role="status" aria-live="polite"></p>
+  </form>
+</div>
+
+<script define:vars={{ sendingLabel: t.contact.formSending, sendLabel: t.contact.formSend, successLabel: t.contact.formSuccess, errorLabel: t.contact.formError }}>
+  const form = document.getElementById("contact-form");
+  const status = document.getElementById("cf-status");
+  const button = form.querySelector("button[type=submit]");
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    // Simple honeypot: if this hidden field got filled, silently drop it.
+    if (form.botcheck.value) return;
+
+    const keys = JSON.parse(form.dataset.keys || "[]").filter(
+      (k) => k && !k.startsWith("REPLACE_ME"),
+    );
+
+    if (keys.length === 0) {
+      status.textContent = errorLabel;
+      status.style.color = "var(--color-accent-2, #c0392b)";
+      return;
+    }
+
+    button.disabled = true;
+    button.textContent = sendingLabel;
+    status.textContent = "";
+
+    const payload = {
+      name: form.name.value,
+      email: form.email.value,
+      message: form.message.value,
+      subject: `New portfolio message from ${form.name.value}`,
+    };
+
+    const results = await Promise.allSettled(
+      keys.map((access_key) =>
+        fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({ access_key, ...payload }),
+        }).then((res) => {
+          if (!res.ok) throw new Error("Request failed");
+          return res.json();
+        }),
+      ),
+    );
+
+    const anySucceeded = results.some((r) => r.status === "fulfilled");
+
+    button.disabled = false;
+    button.textContent = sendLabel;
+
+    if (anySucceeded) {
+      status.textContent = successLabel;
+      status.style.color = "var(--color-accent)";
+      form.reset();
+    } else {
+      status.textContent = errorLabel;
+      status.style.color = "var(--color-accent-2, #c0392b)";
+    }
+  });
+</script>
