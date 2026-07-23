@@ -69,6 +69,10 @@ export const ui = {
       back: "← Projects",
       collaborators: "With",
       group: "Group project",
+      quickJumpLabel: "Just want the code? Jump straight to a repository or notebook",
+      quickJumpPlaceholder: "Choose a project and a link…",
+      tableProjectLabel: "Project",
+      tableLinksLabel: "Code links",
     },
     contact: {
       eyebrow: "Contact",
@@ -154,6 +158,10 @@ export const ui = {
       back: "← Projets",
       collaborators: "Avec",
       group: "Projet de groupe",
+      quickJumpLabel: "Juste envie de voir le code ? Accédez directement à un dépôt ou un notebook",
+      quickJumpPlaceholder: "Choisissez un projet et un lien…",
+      tableProjectLabel: "Projet",
+      tableLinksLabel: "Liens du code",
     },
     contact: {
       eyebrow: "Contact",

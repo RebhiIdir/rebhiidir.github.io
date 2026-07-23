@@ -4,16 +4,33 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 import Container from "@components/Container.astro";
 import ProjectCard from "@components/ProjectCard.astro";
 import SectionHeading from "@components/SectionHeading.astro";
+import QuickCodeLinks from "@components/QuickCodeLinks.astro";
 import { profile } from "@data/profile";
 import { useTranslations } from "@i18n/ui";
 
 const t = useTranslations("en");
 const projects = (await getCollection("projects")).sort((a, b) => b.data.date.localeCompare(a.data.date));
+const research = await getCollection("research");
+
+const quickLinkEntries = [...research, ...projects].map((entry) => ({
+  title: entry.data.title,
+  links: entry.data.links,
+}));
 ---
 
 <BaseLayout title={`Projects - ${profile.name}`}>
   <Container class="py-16 sm:py-20">
     <SectionHeading eyebrow={t.projects.eyebrow} title={t.projects.title} description={t.projects.description} />
+
+    <div class="mt-10">
+      <QuickCodeLinks
+        entries={quickLinkEntries}
+        selectLabel={t.projects.quickJumpLabel}
+        placeholder={t.projects.quickJumpPlaceholder}
+        tableProjectLabel={t.projects.tableProjectLabel}
+        tableLinksLabel={t.projects.tableLinksLabel}
+      />
+    </div>
 
     <div class="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
       {projects.map((entry) => <ProjectCard entry={entry} viewLabel={t.projects.viewProject} collaboratorsLabel={t.projects.collaborators} />)}
