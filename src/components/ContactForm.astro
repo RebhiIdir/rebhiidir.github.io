@@ -1,5 +1,5 @@
 ---
-import { web3FormsAccessKeys } from "@data/contactForm";
+import { formspreeFormId } from "@data/contactForm";
 import { useTranslations, type Locale } from "@i18n/ui";
 
 interface Props {
@@ -8,14 +8,12 @@ interface Props {
 
 const { lang = "en" } = Astro.props;
 const t = useTranslations(lang);
-const keysJson = JSON.stringify(web3FormsAccessKeys);
 ---
 
-<div class="rounded border border-[var(--color-line)] bg-[var(--color-paper)] p-5">
+<div class="rounded border border-[var(--color-line)] bg-[var(--color-paper)] p-5 md:col-span-2">
   <p class="text-sm font-bold uppercase tracking-[0.14em] text-[var(--color-accent)]">{t.contact.formTitle}</p>
-  <p class="mt-3 text-sm text-[var(--color-muted)]">{t.contact.formDescription}</p>
 
-  <form id="contact-form" class="mt-5 space-y-4" data-keys={keysJson}>
+  <form id="contact-form" class="mt-5 grid gap-4 sm:grid-cols-2" data-form-id={formspreeFormId}>
     <div>
       <label for="cf-name" class="mb-1 block text-xs font-bold text-[var(--color-muted)]">{t.contact.formName}</label>
       <input
@@ -23,7 +21,7 @@ const keysJson = JSON.stringify(web3FormsAccessKeys);
         name="name"
         type="text"
         required
-        class="w-full rounded border border-[var(--color-line)] bg-[var(--color-subtle)] px-3 py-2 text-sm text-[var(--color-ink)] outline-none focus:border-[var(--color-accent)]"
+        class="w-full rounded border border-[var(--color-line)] bg-[var(--color-subtle)] px-3 py-2 text-sm text-[var(--color-ink)] outline-none transition-colors focus:border-[var(--color-accent)]"
       />
     </div>
     <div>
@@ -33,92 +31,115 @@ const keysJson = JSON.stringify(web3FormsAccessKeys);
         name="email"
         type="email"
         required
-        class="w-full rounded border border-[var(--color-line)] bg-[var(--color-subtle)] px-3 py-2 text-sm text-[var(--color-ink)] outline-none focus:border-[var(--color-accent)]"
+        class="w-full rounded border border-[var(--color-line)] bg-[var(--color-subtle)] px-3 py-2 text-sm text-[var(--color-ink)] outline-none transition-colors focus:border-[var(--color-accent)]"
       />
     </div>
-    <div>
+    <div class="sm:col-span-2">
       <label for="cf-message" class="mb-1 block text-xs font-bold text-[var(--color-muted)]">{t.contact.formMessage}</label>
       <textarea
         id="cf-message"
         name="message"
         rows="5"
         required
-        class="w-full rounded border border-[var(--color-line)] bg-[var(--color-subtle)] px-3 py-2 text-sm text-[var(--color-ink)] outline-none focus:border-[var(--color-accent)]"
+        class="w-full rounded border border-[var(--color-line)] bg-[var(--color-subtle)] px-3 py-2 text-sm text-[var(--color-ink)] outline-none transition-colors focus:border-[var(--color-accent)]"
       ></textarea>
     </div>
 
     <!-- Honeypot field: hidden from real visitors, catches simple spam bots -->
-    <input type="text" name="botcheck" class="hidden" tabindex="-1" autocomplete="off" />
+    <input type="text" name="_gotcha" class="hidden" tabindex="-1" autocomplete="off" />
 
-    <button
-      type="submit"
-      class="inline-flex min-h-11 items-center justify-center gap-2 rounded border border-[var(--color-accent)] bg-[var(--color-accent)] px-5 text-sm font-bold transition-opacity hover:opacity-90 disabled:opacity-60"
-      style="color: var(--color-accent-contrast)"
-    >
-      {t.contact.formSend}
-    </button>
+    <div class="flex flex-wrap items-center gap-4 sm:col-span-2">
+      <button
+        type="submit"
+        id="cf-submit"
+        class="relative inline-flex min-h-11 min-w-[9.5rem] items-center justify-center gap-2 overflow-hidden rounded border border-[var(--color-accent)] bg-[var(--color-accent)] px-5 text-sm font-bold transition-all duration-150 hover:opacity-90 active:scale-[0.96] disabled:cursor-not-allowed disabled:opacity-70 disabled:active:scale-100"
+        style="color: var(--color-accent-contrast)"
+      >
+        <svg id="cf-spinner" class="hidden h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
+          <path class="opacity-90" fill="currentColor" d="M4 12a8 8 0 0 1 8-8V0C5.4 0 0 5.4 0 12h4Z" />
+        </svg>
+        <svg id="cf-check" class="hidden h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m5 13 4 4L19 7" />
+        </svg>
+        <span id="cf-submit-label">{t.contact.formSend}</span>
+      </button>
 
-    <p id="cf-status" class="text-sm" role="status" aria-live="polite"></p>
+      <p
+        id="cf-status"
+        class="flex translate-y-1 items-center gap-2 text-sm font-medium opacity-0 transition-all duration-300"
+        role="status"
+        aria-live="polite"
+      ></p>
+    </div>
   </form>
 </div>
 
 <script define:vars={{ sendingLabel: t.contact.formSending, sendLabel: t.contact.formSend, successLabel: t.contact.formSuccess, errorLabel: t.contact.formError }}>
   const form = document.getElementById("contact-form");
   const status = document.getElementById("cf-status");
-  const button = form.querySelector("button[type=submit]");
+  const button = document.getElementById("cf-submit");
+  const label = document.getElementById("cf-submit-label");
+  const spinner = document.getElementById("cf-spinner");
+  const check = document.getElementById("cf-check");
+
+  function setStatus(text, kind) {
+    status.textContent = text;
+    status.style.color =
+      kind === "success" ? "var(--color-accent)" : kind === "error" ? "#dc4747" : "var(--color-muted)";
+    // restart the fade-in animation
+    status.classList.remove("opacity-0", "translate-y-1");
+    void status.offsetWidth;
+    if (!text) {
+      status.classList.add("opacity-0", "translate-y-1");
+    }
+  }
+
+  function setBusy(isBusy) {
+    button.disabled = isBusy;
+    spinner.classList.toggle("hidden", !isBusy);
+    label.classList.toggle("hidden", isBusy);
+    if (isBusy) label.textContent = sendingLabel;
+  }
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     // Simple honeypot: if this hidden field got filled, silently drop it.
-    if (form.botcheck.value) return;
+    if (form._gotcha.value) return;
 
-    const keys = JSON.parse(form.dataset.keys || "[]").filter(
-      (k) => k && !k.startsWith("REPLACE_ME"),
-    );
-
-    if (keys.length === 0) {
-      status.textContent = errorLabel;
-      status.style.color = "var(--color-accent-2, #c0392b)";
+    const formId = form.dataset.formId;
+    if (!formId || formId.startsWith("REPLACE_ME")) {
+      setStatus(errorLabel, "error");
       return;
     }
 
-    button.disabled = true;
-    button.textContent = sendingLabel;
-    status.textContent = "";
+    setBusy(true);
+    check.classList.add("hidden");
+    label.classList.remove("hidden");
+    setStatus("", null);
 
-    const payload = {
-      name: form.name.value,
-      email: form.email.value,
-      message: form.message.value,
-      subject: `New portfolio message from ${form.name.value}`,
-    };
+    try {
+      const response = await fetch(`https://formspree.io/f/${formId}`, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: new FormData(form),
+      });
 
-    const results = await Promise.allSettled(
-      keys.map((access_key) =>
-        fetch("https://api.web3forms.com/submit", {
-          method: "POST",
-          headers: { "Content-Type": "application/json", Accept: "application/json" },
-          body: JSON.stringify({ access_key, ...payload }),
-        }).then((res) => {
-          if (!res.ok) throw new Error("Request failed");
-          return res.json();
-        }),
-      ),
-    );
+      if (!response.ok) throw new Error("Request failed");
 
-    const anySucceeded = results.some((r) => r.status === "fulfilled");
-
-    button.disabled = false;
-    button.textContent = sendLabel;
-
-    if (anySucceeded) {
-      status.textContent = successLabel;
-      status.style.color = "var(--color-accent)";
+      setBusy(false);
+      spinner.classList.add("hidden");
+      check.classList.remove("hidden");
+      label.textContent = sendLabel;
+      setStatus(successLabel, "success");
       form.reset();
-    } else {
-      status.textContent = errorLabel;
-      status.style.color = "var(--color-accent-2, #c0392b)";
+
+      setTimeout(() => check.classList.add("hidden"), 2500);
+    } catch (err) {
+      setBusy(false);
+      label.textContent = sendLabel;
+      setStatus(errorLabel, "error");
     }
   });
 </script>

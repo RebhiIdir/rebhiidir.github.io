@@ -1,16 +1,16 @@
-// Contact form delivery — powered by Web3Forms (https://web3forms.com), a free
+// Contact form delivery — powered by Formspree (https://formspree.io), a free
 // service that relays static-site form submissions straight to an inbox with
-// no backend server and no email address ever appearing in this site's code.
+// no backend server needed.
 //
-// Paste the single access key you already have (linked to idir.rebhi@fgei.ummto.dz)
-// below. If you later want the messages to also land in your Gmail or Yahoo
-// inbox, the simplest way is to set up automatic email forwarding from
-// fgei.ummto.dz to those addresses (a normal mailbox feature, not something
-// Web3Forms controls) — no code change needed here for that.
-//
-// If you ever create additional Web3Forms access keys later (one per form/
-// recipient), you can just add them to this array — the form already
-// supports sending to any number of keys at once.
-export const web3FormsAccessKeys: string[] = [
-  "4df1ff20-7105-4e26-9bf3-7e7ce5efce0e", // idir.rebhi@fgei.ummto.dz
-];
+// HOW TO SET IT UP (~2 minutes):
+// 1. Go to https://formspree.io and create a free account (with idir.rebhi@fgei.ummto.dz,
+//    or any address you check).
+// 2. Click "New Form", give it a name (e.g. "Portfolio contact"), and set the
+//    target email to whichever inbox you want messages delivered to.
+// 3. Formspree gives you a form endpoint that looks like:
+//    https://formspree.io/f/xxxxabcd
+//    Copy only the last part (the code after /f/, e.g. "xxxxabcd").
+// 4. Paste it below, replacing REPLACE_ME_FORM_ID.
+// 5. Formspree will send a test/verification email the first time — open it
+//    and confirm, otherwise submissions won't arrive.
+export const formspreeFormId = "maqrdark";
