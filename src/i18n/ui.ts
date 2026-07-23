@@ -73,6 +73,7 @@ export const ui = {
       quickJumpPlaceholder: "Choose a project and a link…",
       tableProjectLabel: "Project",
       tableLinksLabel: "Code links",
+      orBrowseLabel: "or browse the full list",
     },
     contact: {
       eyebrow: "Contact",
@@ -162,6 +163,7 @@ export const ui = {
       quickJumpPlaceholder: "Choisissez un projet et un lien…",
       tableProjectLabel: "Projet",
       tableLinksLabel: "Liens du code",
+      orBrowseLabel: "ou parcourez la liste complète",
     },
     contact: {
       eyebrow: "Contact",

@@ -15,9 +15,10 @@ interface Props {
   placeholder: string;
   tableProjectLabel: string;
   tableLinksLabel: string;
+  orBrowseLabel: string;
 }
 
-const { entries, selectLabel, placeholder, tableProjectLabel, tableLinksLabel } = Astro.props;
+const { entries, selectLabel, placeholder, tableProjectLabel, tableLinksLabel, orBrowseLabel } = Astro.props;
 
 const CODE_PATTERN = /github|colab|kaggle/i;
 
@@ -33,70 +34,94 @@ const rows = entries
     codeLinks: entry.links.filter((l) => CODE_PATTERN.test(l.label)),
   }))
   .filter((row) => row.codeLinks.length > 0);
+
+const ICONS = {
+  github:
+    '<path d="M12 .5C5.73.5.5 5.73.5 12c0 5.09 3.29 9.4 7.86 10.93.58.1.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.04-.72.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.56-.29-5.25-1.28-5.25-5.71 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.47.11-3.06 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.77.12 3.06.74.8 1.18 1.83 1.18 3.09 0 4.44-2.7 5.42-5.27 5.7.42.36.79 1.08.79 2.17 0 1.57-.01 2.83-.01 3.22 0 .31.21.67.8.56A10.52 10.52 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z"/>',
+  kaggle: '<path d="M18.83 21.53h-3.4l-6.14-7.94-1.83 1.75v6.19H4.72V2.47h2.74v10.42l7.44-7.9h3.31l-6.87 7.25 7.49 9.29Z"/>',
+  external:
+    '<path d="M14 4h6v6M20 4 10 14M9 5H6a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>',
+};
 ---
 
 {
   rows.length > 0 && (
-    <div class="rounded border border-[var(--color-line)] bg-[var(--color-subtle)] p-5">
-      <label for="quick-code-jump" class="mb-2 block text-sm font-bold text-[var(--color-ink)]">
-        {selectLabel}
-      </label>
-      <select
-        id="quick-code-jump"
-        class="w-full max-w-xl rounded border border-[var(--color-line)] bg-[var(--color-paper)] px-3 py-2.5 text-sm text-[var(--color-ink)] outline-none transition-colors focus:border-[var(--color-accent)]"
-      >
-        <option value="">{placeholder}</option>
-        {rows.map((row) =>
-          row.codeLinks.map((link) => (
-            <option value={link.url}>
-              {row.title} — {link.label}
-            </option>
-          )),
-        )}
-      </select>
+    <div class="rounded border border-[var(--color-line)] bg-[var(--color-subtle)] p-5 sm:p-6">
+      <div class="flex items-start gap-3">
+        <span class="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--color-accent-soft)] text-[var(--color-accent)]">
+          <svg viewBox="0 0 24 24" class="h-4.5 w-4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m16 18 4-6-4-6M8 6l-4 6 4 6" />
+          </svg>
+        </span>
+        <label for="quick-code-jump" class="pt-1.5 text-sm font-bold text-[var(--color-ink)]">{selectLabel}</label>
+      </div>
 
-      <div class="mt-6 overflow-x-auto">
+      <div class="relative mt-4">
+        <select
+          id="quick-code-jump"
+          class="w-full appearance-none rounded border border-[var(--color-line)] bg-[var(--color-paper)] py-3 pl-4 pr-10 text-sm font-medium text-[var(--color-ink)] outline-none transition-colors focus:border-[var(--color-accent)]"
+        >
+          <option value="" selected disabled>
+            {placeholder}
+          </option>
+          {rows.map((row) => (
+            <optgroup label={row.title}>
+              {row.codeLinks.map((link) => (
+                <option value={link.url}>{link.label}</option>
+              ))}
+            </optgroup>
+          ))}
+        </select>
+        <svg
+          class="pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--color-muted)]"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="m6 9 6 6 6-6" />
+        </svg>
+      </div>
+
+      <div class="mt-6 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.1em] text-[var(--color-muted)]">
+        <span class="h-px flex-1 bg-[var(--color-line)]" />
+        {orBrowseLabel}
+        <span class="h-px flex-1 bg-[var(--color-line)]" />
+      </div>
+
+      {/* Table view — sm and up */}
+      <div class="mt-5 hidden overflow-hidden rounded border border-[var(--color-line)] sm:block">
         <table class="w-full text-sm">
           <thead>
-            <tr>
-              <th class="pb-2 pr-4 text-left font-bold text-[var(--color-muted)]">{tableProjectLabel}</th>
-              <th class="pb-2 text-left font-bold text-[var(--color-muted)]">{tableLinksLabel}</th>
+            <tr class="bg-[var(--color-paper)]">
+              <th class="px-4 py-2.5 text-left font-bold text-[var(--color-muted)]">{tableProjectLabel}</th>
+              <th class="px-4 py-2.5 text-left font-bold text-[var(--color-muted)]">{tableLinksLabel}</th>
             </tr>
           </thead>
           <tbody>
-            {rows.map((row) => (
-              <tr class="border-t border-[var(--color-line)]">
-                <td class="py-2.5 pr-4 font-semibold text-[var(--color-ink)]">{row.title}</td>
-                <td class="py-2.5">
+            {rows.map((row, i) => (
+              <tr
+                class:list={[
+                  "border-t border-[var(--color-line)] transition-colors hover:bg-[var(--color-accent-soft)]",
+                  i % 2 === 1 && "bg-[color-mix(in_srgb,var(--color-paper),transparent_50%)]",
+                ]}
+              >
+                <td class="px-4 py-3 font-semibold text-[var(--color-ink)]">{row.title}</td>
+                <td class="px-4 py-3">
                   <div class="flex flex-wrap gap-2">
-                    {row.codeLinks.map((link) => {
-                      const icon = iconFor(link.label);
-                      return (
-                        <a
-                          href={link.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          class="inline-flex items-center gap-1.5 rounded-full border border-[var(--color-accent)] bg-[var(--color-accent-soft)] px-3 py-1 text-xs font-semibold text-[var(--color-accent)] transition-transform hover:-translate-y-0.5"
-                        >
-                          {icon === "github" && (
-                            <svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="currentColor">
-                              <path d="M12 .5C5.73.5.5 5.73.5 12c0 5.09 3.29 9.4 7.86 10.93.58.1.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.04-.72.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.56-.29-5.25-1.28-5.25-5.71 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.47.11-3.06 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.77.12 3.06.74.8 1.18 1.83 1.18 3.09 0 4.44-2.7 5.42-5.27 5.7.42.36.79 1.08.79 2.17 0 1.57-.01 2.83-.01 3.22 0 .31.21.67.8.56A10.52 10.52 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z" />
-                            </svg>
-                          )}
-                          {icon === "kaggle" && (
-                            <svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="currentColor">
-                              <path d="M18.83 21.53h-3.4l-6.14-7.94-1.83 1.75v6.19H4.72V2.47h2.74v10.42l7.44-7.9h3.31l-6.87 7.25 7.49 9.29Z" />
-                            </svg>
-                          )}
-                          {icon === "external" && (
-                            <svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                              <path d="M14 4h6v6M20 4 10 14M9 5H6a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-3" />
-                            </svg>
-                          )}
-                          {link.label}
-                        </a>
-                      );
-                    })}
+                    {row.codeLinks.map((link) => (
+                      <a
+                        href={link.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="inline-flex items-center gap-1.5 rounded-full border border-[var(--color-accent)] bg-[var(--color-accent-soft)] px-3 py-1 text-xs font-semibold text-[var(--color-accent)] transition-transform hover:-translate-y-0.5"
+                      >
+                        <svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="currentColor" set:html={ICONS[iconFor(link.label)]} />
+                        {link.label}
+                      </a>
+                    ))}
                   </div>
                 </td>
               </tr>
@@ -104,17 +129,39 @@ const rows = entries
           </tbody>
         </table>
       </div>
+
+      {/* Stacked card view — mobile only */}
+      <div class="mt-5 space-y-3 sm:hidden">
+        {rows.map((row) => (
+          <div class="rounded border border-[var(--color-line)] bg-[var(--color-paper)] p-3.5">
+            <p class="text-sm font-semibold text-[var(--color-ink)]">{row.title}</p>
+            <div class="mt-2.5 flex flex-wrap gap-2">
+              {row.codeLinks.map((link) => (
+                <a
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-1.5 rounded-full border border-[var(--color-accent)] bg-[var(--color-accent-soft)] px-3 py-1.5 text-xs font-semibold text-[var(--color-accent)]"
+                >
+                  <svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="currentColor" set:html={ICONS[iconFor(link.label)]} />
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
 
 <script>
-  const select = document.getElementById("quick-code-jump");
+  const select = document.getElementById("quick-code-jump") as HTMLSelectElement | null;
   select?.addEventListener("change", () => {
     const url = select.value;
     if (url) {
       window.open(url, "_blank", "noopener,noreferrer");
-      select.value = "";
+      select.selectedIndex = 0;
     }
   });
 </script>
